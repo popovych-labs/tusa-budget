@@ -8,3 +8,9 @@
 ## Run
 
 `make run`
+
+## Docs
+
+### User Flow
+
+![User Flow diagram](./docs/userflow.jpg "User Flow diagram")
