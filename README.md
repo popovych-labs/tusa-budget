@@ -11,6 +11,10 @@
 
 ## Docs
 
+### Ideas
+
+1. Notifications to send money
+
 ### User Flow
 
 ![User Flow diagram](./docs/userflow.jpg "User Flow diagram")
