@@ -23,6 +23,7 @@
 ### Ideas
 
 1. Notifications to send money
+2. Extend dashboard to display an anount of money to receive or transfer
 
 ### User Flow
 
