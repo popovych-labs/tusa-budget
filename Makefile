@@ -15,3 +15,6 @@ compose-down:
 
 compose-stop:
 	docker compose 	--env-file .\dev.env stop
+
+compose-rm:
+	docker compose 	--env-file .\dev.env rm
