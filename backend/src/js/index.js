@@ -24,6 +24,10 @@ form.addEventListener("submit", async (event) => {
             console.error("401 Unauthorized", response)
             errorMessage.style.display = 'block';
         }
+        else if (response.status === 404) {
+            console.error("404 Not Found", response)
+            errorMessage.style.display = "block";
+        }
         else {
             const errorData = await response.json();
             console.error("Form submission error:", errorData);
