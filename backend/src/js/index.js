@@ -17,7 +17,7 @@ form.addEventListener("submit", async (event) => {
         });
 
         if (response.ok) {
-            window.location.href = "/action_select"
+            window.location.href = "/dashboard"
             // Process the data on the frontend as needed.
         } 
         else if (response.status === 401) {

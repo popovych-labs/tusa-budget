@@ -60,5 +60,8 @@ def create_routes(
                 "message": "wrong password"
             }, status_code=401)
     
+    @endpoints.get("/dashboard")
+    async def get_dashboard(request: Request):
+        return templates.TemplateResponse(name="dashboard.html", context={"request": request})
     
     return endpoints
