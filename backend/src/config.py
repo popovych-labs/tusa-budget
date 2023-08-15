@@ -1,6 +1,6 @@
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
-from pydantic import PostgresDsn
+from pydantic import PostgresDsn, AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -11,7 +11,7 @@ class Settings(BaseSettings):
         extra='ignore',
     )
 
-    db_url: Optional[PostgresDsn] = None
+    db_url: Union[PostgresDsn, AnyUrl, None] = None
     db_connect_args: dict[str, Any] = {}
 
 
