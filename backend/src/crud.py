@@ -6,7 +6,7 @@ from . import models, schemes
 
 def create_user(db: Session, user: schemes.UserCreate):
 
-    hashed_password = user.password + "notreallyhashed"
+    hashed_password = user.password
 
     db_user = models.User(username=user.username, password=hashed_password)
     db.add(db_user)

@@ -11,7 +11,7 @@ form.addEventListener("submit", async (event) => {
     const errorMessage = document.getElementById("error-msg")
 
     try {
-        const response = await fetch(`${domain}/login`, {
+        const response = await fetch(`${domain}/token`, {
             method: "POST",
             body: formData,
         });

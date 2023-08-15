@@ -21,7 +21,6 @@ def create_routes(
         return templates.TemplateResponse(name="index.html", context={"request": request})
     
     
-    
     @endpoints.get("/dashboard")
     async def get_dashboard(request: Request):
         return templates.TemplateResponse(name="dashboard.html", context={"request": request})

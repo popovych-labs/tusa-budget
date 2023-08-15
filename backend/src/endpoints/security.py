@@ -1,7 +1,6 @@
-from typing import Callable
+from typing import Callable, Annotated
 
-from fastapi import APIRouter, Depends
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 
 from sqlalchemy.orm import Session
@@ -12,29 +11,18 @@ def create_serurity_routes(fn_get_db_session: Callable):
     endpoints = APIRouter()
 
     @endpoints.post("/token")
-    async def post_login(request: Request, db: Session = Depends(fn_get_db_session)):
-        form_data = await request.form()
-        username, password = str(form_data['username']), form_data['password']
+    async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], 
+                    db: Session = Depends(fn_get_db_session)):
+        username, password = form_data.username, form_data.password
 
         db_user = crud.get_user_by_username(db, username=username)
 
         if db_user is None:
-            return JSONResponse({
-                "status": "error",
-                "message": "username not found"
-            }, status_code=404)
-        
-        hashed_password = str(password) + "notreallyhashed"
+            raise HTTPException(status_code=404, detail="Unknown user")
 
-        if str(db_user.password) == hashed_password:
-            return JSONResponse({
-                "status": "ok",
-                "message": ""
-            }, status_code=200)
+        if str(db_user.password) != password:
+            raise HTTPException(status_code=40, detail="Incorrect password")
         
-        return JSONResponse({
-                "status": "error",
-                "message": "wrong password"
-            }, status_code=401)
+        return {"access_token": username, "token_type": "bearer"}
 
     return endpoints
