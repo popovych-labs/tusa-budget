@@ -3,7 +3,9 @@ import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from . import db_connections, endpoints
+from . import endpoints
+
+from . import db_connections
 from . import config
 
 
@@ -20,11 +22,15 @@ def app_factory():
         connect_args=config.settings.db_connect_args,
     )
 
-    router = endpoints.create_routes(
+    router_app = endpoints.application.create_routes(
         path_to_templates=TEMPLATES_DIR,
         fn_get_db_session=fn_get_db_session,
     )
-    app.include_router(router)
+    router_security = endpoints.security.create_serurity_routes(
+        fn_get_db_session=fn_get_db_session,
+    )
+    app.include_router(router_app)
+    app.include_router(router_security)
 
     app.mount("/js", StaticFiles(directory=JS_DIR), name="js")
     app.mount("/style", StaticFiles(directory=STYLE_DIR), name="style")
