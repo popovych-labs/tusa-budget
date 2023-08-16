@@ -45,4 +45,12 @@ def create_routes(
             context={"request": request},
             )
     
+    @endpoints.post("/tusa")
+    async def get_tusa_part(request: Request, token: Annotated[str, Depends(validate_token)]):
+        return templates.TemplateResponse(
+            name="_tusa.html", 
+            context={"request": request},
+            )
+
+    
     return endpoints
