@@ -26,4 +26,9 @@ def get_tusa_tables_by_username(db: Session, username: str):
             ).filter(models.User.username == username
             ).all()
 
+def get_tusa_table_by_id(db: Session, id: int):
+    return db.query(models.TusaTable
+            ).filter(models.TusaTable.id == id
+            ).first()
+
 
