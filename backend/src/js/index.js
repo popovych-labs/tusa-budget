@@ -79,6 +79,11 @@ fetch(currentUrl, {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
+        if (response.redirected){
+            window.location.href = response.url;
+        }
+
         const text = response.text();
         return text; // Assuming the response contains HTML/text content
     })
