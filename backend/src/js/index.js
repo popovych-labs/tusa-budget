@@ -2,6 +2,7 @@ const currentUrl = new URL(window.location.href);
 
 const domain = currentUrl.origin;
 const path = currentUrl.pathname;
+const search = currentUrl.search
 // request page content
 
 const token = localStorage.getItem('token');
