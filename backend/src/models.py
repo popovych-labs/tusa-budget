@@ -1,9 +1,16 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
+assosiation_table = Table(
+    "user_tusa_table_association",
+    Base.metadata,
+    Column("user_id", ForeignKey("users.id"), primary_key=True),
+    Column("tusa_table_id", ForeignKey("tusa_table.id"), primary_key=True),        
+)
 
 class User(Base):
     __tablename__ = "users"
@@ -13,7 +20,8 @@ class User(Base):
     password = Column(String)
 
     tables: Mapped[list["TusaTable"]] = relationship(
-        secondary="user_tusa_table_association", back_populates="users"
+        secondary="user_tusa_table_association",
+        back_populates="users"
     )
 
 
@@ -24,13 +32,6 @@ class TusaTable(Base):
     name = Column(String)
 
     users: Mapped[list["User"]] = relationship(
-        secondary="user_tusa_table_association", back_populates="tusa_table"
+        secondary="user_tusa_table_association",
+        back_populates="tables"
     )
-
-
-class UserTusaTableAssociation(Base):
-    __tablename__ = "user_tusa_table_association"
-
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), primary_key=True)
-    tusa_table_id: Mapped[int] = mapped_column(
-        ForeignKey("tusa_table.id"), primary_key=True)

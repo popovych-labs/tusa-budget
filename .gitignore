@@ -9,3 +9,4 @@ dev.env
 alembic.ini
 
 *.sqlite
+__debug.py

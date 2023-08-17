@@ -19,3 +19,11 @@ def get_user_by_username(db: Session, username: str):
     return db.query(models.User).filter(models.User.username == username).first()
 
 
+def get_tusa_tables_by_username(db: Session, username: str):
+    return db.query(models.TusaTable
+            ).join(models.assosiation_table
+            ).join(models.User
+            ).filter(models.User.username == username
+            ).all()
+
+

@@ -39,10 +39,16 @@ def create_routes(
             )
     
     @endpoints.post("/dashboard")
-    async def get_dashboard_part(request: Request, token: Annotated[str, Depends(validate_token)]):
+    async def get_dashboard_part(request: Request, token: Annotated[str, Depends(validate_token)], db: Annotated[Session, Depends(fn_get_db_session)]):
+        db_tusa_tables = crud.get_tusa_tables_by_username(db, username=token)
+
+
         return templates.TemplateResponse(
             name="_dashboard.html", 
-            context={"request": request},
+            context={
+                "request": request,
+                "tables_names": [table.name for table in db_tusa_tables]
+                },
             )
     
     @endpoints.post("/tusa")
