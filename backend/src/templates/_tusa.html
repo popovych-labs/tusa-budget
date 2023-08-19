@@ -5,3 +5,22 @@
 
 <h2>Ім'я користувача:</h2>
 <p id="user_name">{{ user_name }}</p>
+
+<h2>Таблиця інвентаря</h2>
+<table id="inventory">
+    <tr>
+        <th>Назва товару</th>
+        <th>Вартість</th>
+        <th>Хто купив</th>
+        <th>Cписок використовувачів</th>
+        <th>(Тут будуть додаткові кнопочки)</th>
+    </tr>
+    <tr id="input_row">
+        <td contenteditable="plaintext-only"></td>
+        <td contenteditable="plaintext-only"></td>
+        <td contenteditable="plaintext-only"></td>
+        <td contenteditable="plaintext-only"></td>
+        <td contenteditable="false"><button id="add_row">Додати</button></td>
+        
+    </tr>
+</table>

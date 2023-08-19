@@ -60,7 +60,62 @@ function dashboard_page(){
 }
 
 function tusa_page(){
-    console.log("tusa")
+    console.log("tusa");
+
+    const table_inventory = document.getElementById("inventory");
+    // #inventory table logic
+    const button_add_row = document.getElementById("add_row");
+
+
+    button_add_row.addEventListener("click", () => {
+        var inputRow = button_add_row.closest("tr");
+        var inputRowCells = inputRow.children;
+        var anyEmptyCell = false;
+        var newCellsData = [];
+
+        for (let index = 0; index < inputRowCells.length - 1; index++) {
+            var cell = inputRowCells[index];
+            if (cell.textContent === "" && index < 2){
+                anyEmptyCell = true;
+                cell.classList.add("error_happened_with_cell");
+                (function(cell) {
+                    setTimeout(() => {
+                        cell.classList.remove("error_happened_with_cell");
+                    }, 2000);
+                })(cell);
+            }            
+            else {
+                newCellsData.push(cell.textContent);
+            }
+        }
+
+        if (anyEmptyCell) return;
+
+        var newRow = document.createElement("tr");
+        for (let i=0; i < inputRowCells.length - 1; i++){
+            inputRowCells[i].textContent = "";
+
+            var cell = document.createElement("td");
+            cell.textContent = newCellsData[i];
+            newRow.appendChild(cell);
+        }
+
+        var deleteButton = document.createElement("button");
+        deleteButton.setAttribute("id", "delete_row");
+        deleteButton.textContent = "Видалити";
+
+        deleteButton.addEventListener("click", async () => {
+            var currentRow = deleteButton.closest("tr");
+            currentRow.parentNode.removeChild(currentRow);
+        });
+
+        var cellWithButton = document.createElement("td");
+        cellWithButton.appendChild(deleteButton);
+
+        newRow.appendChild(cellWithButton);        
+        table_inventory.append(newRow);
+    })
+
 }
 
 var functionDict = {

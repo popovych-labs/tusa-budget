@@ -2,3 +2,17 @@
     color: red;
     display: none;
 }
+#inventory, th, td {
+    table-layout: fixed;
+    width: 90%;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+#add_row {
+    display: inline;
+}
+
+.error_happened_with_cell {
+    border: 3px solid red;
+}
