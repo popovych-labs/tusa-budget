@@ -20,15 +20,21 @@ def get_user_by_username(db: Session, username: str):
 
 
 def get_tusa_tables_by_username(db: Session, username: str):
-    return db.query(models.TusaTable
+    return db.query(models.Tusa
             ).join(models.assosiation_table
             ).join(models.User
             ).filter(models.User.username == username
             ).all()
 
 def get_tusa_table_by_id(db: Session, id: int):
-    return db.query(models.TusaTable
-            ).filter(models.TusaTable.id == id
+    return db.query(models.Tusa
+            ).filter(models.Tusa.id == id
             ).first()
+
+def get_inventory_items_by_tusa_id(db: Session, id: int):
+    return db.query(models.InventoryItem
+            ).join(models.Tusa
+            ).filter(models.Tusa.id == id
+            ).all()
 
 

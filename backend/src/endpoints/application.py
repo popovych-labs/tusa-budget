@@ -8,6 +8,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 from .. import crud
+from .. import schemes
 
 
 def create_routes(
@@ -76,6 +77,14 @@ def create_routes(
                 "table_name": db_tusa_table.name
             },
         )
+    
+    @endpoints.get("/api/inventory_items", response_model=list[schemes.InventoryItem])
+    async def get_inventory_items(
+        token: Annotated[str, Depends(validate_token)], db: Annotated[Session, Depends(fn_get_db_session)],
+        id: int
+    ):
+        db_inventory_items = crud.get_inventory_items_by_tusa_id(db, id=id)
+        return db_inventory_items
 
     
     return endpoints

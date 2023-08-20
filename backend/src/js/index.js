@@ -59,13 +59,13 @@ function dashboard_page(){
     
 }
 
-function tusa_page(){
+async function tusa_page(){
     console.log("tusa");
+    console.log(search);
 
     const table_inventory = document.getElementById("inventory");
     // #inventory table logic
     const button_add_row = document.getElementById("add_row");
-
 
     button_add_row.addEventListener("click", () => {
         var inputRow = button_add_row.closest("tr");
@@ -115,6 +115,61 @@ function tusa_page(){
         newRow.appendChild(cellWithButton);        
         table_inventory.append(newRow);
     })
+
+    // fetch inventory items
+
+    function appendCellToRow(row, cellData) {
+        var cell = document.createElement("td");
+        cell.textContent = cellData;
+        row.appendChild(cell);
+    }
+    function appendDeleteButtonCelltoRow(row){
+        var deleteButton = document.createElement("button");
+        deleteButton.setAttribute("id", "delete_row");
+        deleteButton.textContent = "Видалити";
+
+        deleteButton.addEventListener("click", async () => {
+            var currentRow = deleteButton.closest("tr");
+            currentRow.parentNode.removeChild(currentRow);
+        });
+
+        var cellWithButton = document.createElement("td");
+        cellWithButton.appendChild(deleteButton);
+        row.appendChild(cellWithButton); 
+    }
+
+
+    try {
+        const response = await fetch(`${domain}/api/inventory_items${search}`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }});
+        
+        if (response.ok){
+            const data = await response.json();
+            console.log(data);
+
+            // iterate over rows
+            for (let i=0; i < data.length; i++){
+                var newRow = document.createElement("tr");    
+
+                rowData = data[i];
+
+                appendCellToRow(newRow, rowData.item_name);
+                appendCellToRow(newRow, rowData.price);
+                appendCellToRow(newRow, "");
+                appendCellToRow(newRow, "");
+                appendDeleteButtonCelltoRow(newRow);
+                 
+                table_inventory.append(newRow);
+            }
+
+        }
+    } catch (error){
+        console.error("Server error:", error);
+        // Handle server-related errors on the frontend.
+    };
 
 }
 
