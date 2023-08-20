@@ -13,15 +13,15 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
-class TusaTable(BaseModel):
+class Tusa(BaseModel):
     id: int
     name: str
 
     class Config:
         orm_mode = True
 
-class UserTusaMany(User):
-    tusa_table_id: list[TusaTable]
-
-class TusaUserMany(User):
-    users_id: list[User]
+class InventoryItem(BaseModel):
+    id: int
+    item_name: str
+    price: int
+    tusa_id: int
