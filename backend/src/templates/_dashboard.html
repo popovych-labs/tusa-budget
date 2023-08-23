@@ -1,10 +1,28 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 
-<h1>Дашборд</h1>
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2>Дашборд</h2>
+    </div>
 
-<button type="button" id="create_tusa">Створити нову тусу</button>
+    <div class="mx-auto w-full max-w-xl">
+        <div class="flex justify-between mt-10 border-b pb-4">
+            <h3>Список тус</h2>
+            <div>
+                <button type="submit" id="create_tusa" class="btn">Створити нову тусу</button>
+            </div>
+        </div>
 
-<h2>Список тус:</h2>
-<ul id="existing_tusa"></ul>
-{% for table in tables_names %}
-<li><a href="/tusa?id={{ table.id }}">{{ table.name }}</a></li>
-{% endfor %}
+
+
+        <div class="mt-5">
+            <ul id="existing_tusa" role="list" >
+            {% for table in tables_names %}
+                <li class="flex justify-between gap-x-6 py-2">
+                    <p class="text-sm font-normal text-gray-900 flex items-center justify-center">{{ table.name }}</p>
+                    <a href="/tusa?id={{ table.id }}" class="btn-view">Проглянути</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
