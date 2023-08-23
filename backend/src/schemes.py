@@ -20,8 +20,11 @@ class Tusa(BaseModel):
     class Config:
         orm_mode = True
 
-class InventoryItem(BaseModel):
-    id: int
+class InventoryItemCreate(BaseModel):
     item_name: str
     price: int
+    # owner_name: str
+
+class InventoryItem(InventoryItemCreate):
+    id: int
     tusa_id: int

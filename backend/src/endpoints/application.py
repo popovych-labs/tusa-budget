@@ -1,4 +1,4 @@
-from typing import Callable, Annotated
+from typing import Callable, Annotated, Optional
 
 from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
@@ -78,13 +78,21 @@ def create_routes(
             },
         )
     
-    @endpoints.get("/api/inventory_items", response_model=list[schemes.InventoryItem])
+    @endpoints.get("/api/inventory_items", response_model=list[schemes.InventoryItemCreate])
     async def get_inventory_items(
         token: Annotated[str, Depends(validate_token)], db: Annotated[Session, Depends(fn_get_db_session)],
         id: int
     ):
         db_inventory_items = crud.get_inventory_items_by_tusa_id(db, id=id)
         return db_inventory_items
+    
+    @endpoints.post("/api/create_tusa")
+    async def create_tura(
+        token: Annotated[str, Depends(validate_token)], db: Annotated[Session, Depends(fn_get_db_session)],
+        name: Optional[str] = ""
+    ):
+        db_tusa = crud.create_tusa(db, creator_username=token, name=name)
+        return db_tusa
 
     
     return endpoints

@@ -5,19 +5,19 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-assosiation_table = Table(
+user_tusa_association = Table(
     "user_tusa_association",
     Base.metadata,
     Column("user_id", ForeignKey("user.id"), primary_key=True),
     Column("tusa_id", ForeignKey("tusa.id"), primary_key=True),        
 )
 
-# assosiation_table = Table(
-#     "item_user_association",
-#     Base.metadata,
-#     Column("inventory_item_id", ForeignKey("inventory_item.id"), primary_key=True),
-#     Column("user_id", ForeignKey("users.id"), primary_key=True)
-# )
+item_participant_association = Table(
+    "item_participant_association",
+    Base.metadata,
+    Column("inventory_item_id", ForeignKey("inventory_item.id"), primary_key=True),
+    Column("user_id", ForeignKey("user.id"), primary_key=True)
+)
 
 class User(Base):
     __tablename__ = "user"
@@ -26,11 +26,7 @@ class User(Base):
     username = Column(String, unique=True)
     password = Column(String)
 
-    # owner_inventory_items: Mapped[List["InventoryItem"]] = relationship()
-    # participant_inventory_items: Mapped[List["InventoryItem"]] = relationship(
-    #     secondary="item_user_association", 
-    #     back_populates="participants_ids"
-    # )
+    owned_items: Mapped[list["InventoryItem"]] = relationship()
 
 
 class Tusa(Base):
@@ -51,7 +47,14 @@ class InventoryItem(Base):
     item_name = Column(String, nullable=False)
     price = Column(Integer, nullable=False)
 
+    # relation to tusa many to one (bidirectional)
     tusa_id: Mapped[int] = mapped_column(ForeignKey("tusa.id"))
     tusa: Mapped[Tusa] = relationship(back_populates="items")
+
+    # relation to owner(user) many to one
+    owner_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+
+    # relation to participants(users) many to many
+    participants: Mapped[list[User]] = relationship(secondary="item_participant_association")
     
 
