@@ -25,4 +25,16 @@
         text-black shadow-sm hover:bg-indigo-500 focus-visible:outline 
         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
     }
+
+    th {
+        @apply px-6 py-3 text-left text-xs font-medium text-white uppercase bg-indigo-500;
+    }
+
+    td {
+        @apply px-6 py-2 whitespace-nowrap text-sm text-gray-800;
+    }
+
+    .tr-header {
+        @apply hover:bg-indigo-100 divide-x divide-white;
+    }
 }

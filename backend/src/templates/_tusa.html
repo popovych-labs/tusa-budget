@@ -1,26 +1,43 @@
-<h1>Туса</h1>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2>Туса</h2>
+    </div>
 
-<h2>Назва таблиці:</h2>
-<p id="table_name">{{ table_name }}</p>
+    <div class="flex justify-between mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
+        <div class="flex">
+            <h3>Назва таблиці:</h3>
+            <p id="table_name" class="ml-2 flex items-center justify-center">{{ table_name }}</p>
+        </div>
 
-<h2>Ім'я користувача:</h2>
-<p id="user_name">{{ user_name }}</p>
+        <div class="flex">
+            <h3>Ім'я користувача:</h3>
+            <p id="user_name" class="ml-2 flex items-center justify-center">{{ user_name }}</p>
+        </div>
+    </div>
+    <div class="mt-10">
+        <h3>Таблиця інвентаря</h3>
+    </div>
+    <div class="mx-auto mt-3 shadow overflow-hidden border rounded-lg dark:border-gray-700">
+        <table id="inventory" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead>
+                <tr class="tr-header">
+                    <th>Назва товару</th>
+                    <th>Вартість</th>
+                    <th>Хто купив</th>
+                    <th>Cписок використовувачів</th>
+                    <th>Дія</th>
+                </tr>
+            </thead>    
+            <tr id="input_row">
+                <td contenteditable="plaintext-only"></td>
+                <td contenteditable="plaintext-only"></td>
+                <td contenteditable="plaintext-only"></td>
+                <td contenteditable="plaintext-only"></td>
+                <td contenteditable="false"><button id="add_row" class="btn-view">Додати</button></td>
+            </tr>
+            
+        </table>
+    </div>
 
-<h2>Таблиця інвентаря</h2>
-<table id="inventory">
-    <tr>
-        <th>Назва товару</th>
-        <th>Вартість</th>
-        <th>Хто купив</th>
-        <th>Cписок використовувачів</th>
-        <th>(Тут будуть додаткові кнопочки)</th>
-    </tr>
-    <tr id="input_row">
-        <td contenteditable="plaintext-only"></td>
-        <td contenteditable="plaintext-only"></td>
-        <td contenteditable="plaintext-only"></td>
-        <td contenteditable="plaintext-only"></td>
-        <td contenteditable="false"><button id="add_row">Додати</button></td>
-        
-    </tr>
-</table>
+
+</div>

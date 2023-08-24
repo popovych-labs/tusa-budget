@@ -124,6 +124,7 @@ async function tusa_page(){
         var deleteButton = document.createElement("button");
         deleteButton.setAttribute("id", "delete_row");
         deleteButton.textContent = "Видалити";
+        deleteButton.classList.add("btn-view")
 
         deleteButton.addEventListener("click", async () => {
             var currentRow = deleteButton.closest("tr");
@@ -148,6 +149,7 @@ async function tusa_page(){
         var deleteButton = document.createElement("button");
         deleteButton.setAttribute("id", "delete_row");
         deleteButton.textContent = "Видалити";
+        deleteButton.classList.add("btn-view");
 
         deleteButton.addEventListener("click", async () => {
             var currentRow = deleteButton.closest("tr");
