@@ -12,13 +12,11 @@ from .. import schemes
 
 
 def create_routes(
-        path_to_templates: str,
+        templates: Jinja2Templates,
         fn_get_db_session: Callable,
         oauth2_scheme: OAuth2PasswordBearer
 ):
     endpoints = APIRouter()
-
-    templates = Jinja2Templates(directory=path_to_templates)
 
     def validate_token(token: Annotated[str, Depends(oauth2_scheme)], db: Annotated[Session, Depends(fn_get_db_session)]):
         db_user = crud.get_user_by_username(db, username=token)

@@ -1,8 +1,9 @@
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 from . import endpoints
 
@@ -20,13 +21,15 @@ def app_factory():
 
     oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/token")
 
+    templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
     fn_get_db_session = db_connections.get_db_session_factory(
         db_url=str(config.settings.db_url),
         connect_args=config.settings.db_connect_args,
     )
 
     router_app = endpoints.application.create_routes(
-        path_to_templates=TEMPLATES_DIR,
+        templates=templates,
         fn_get_db_session=fn_get_db_session,
         oauth2_scheme=oauth2_scheme
     )
@@ -38,5 +41,10 @@ def app_factory():
 
     app.mount("/js", StaticFiles(directory=JS_DIR), name="js")
     app.mount("/style", StaticFiles(directory=STYLE_DIR), name="style")
+
+    @app.exception_handler(405)
+    async def error_handler(request: Request, exc: HTTPException):
+        return templates.TemplateResponse(name="_404.html", context={"request": request})
+
 
     return app
