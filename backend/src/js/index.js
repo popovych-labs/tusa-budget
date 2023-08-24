@@ -176,10 +176,11 @@ async function tusa_page(){
                 var newRow = document.createElement("tr");    
 
                 rowData = data[i];
+                console.log(rowData);
 
                 appendCellToRow(newRow, rowData.item_name);
                 appendCellToRow(newRow, rowData.price);
-                appendCellToRow(newRow, "");
+                appendCellToRow(newRow, rowData.owner_name);
                 appendCellToRow(newRow, "");
                 appendDeleteButtonCelltoRow(newRow);
                  

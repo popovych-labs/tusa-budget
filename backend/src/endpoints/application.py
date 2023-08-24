@@ -87,7 +87,7 @@ def create_routes(
         return db_inventory_items
     
     @endpoints.post("/api/create_tusa")
-    async def create_tura(
+    async def create_tusa(
         token: Annotated[str, Depends(validate_token)], db: Annotated[Session, Depends(fn_get_db_session)],
         name: Optional[str] = ""
     ):

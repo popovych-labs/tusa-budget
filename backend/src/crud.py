@@ -1,7 +1,9 @@
 from typing import Optional
 
 import os
+from sqlalchemy import select
 from sqlalchemy.orm import Session
+
 
 from . import models, schemes
 
@@ -49,10 +51,16 @@ def get_tusa_table_by_id(db: Session, id: int):
             ).first()
 
 def get_inventory_items_by_tusa_id(db: Session, id: int):
-    return db.query(models.InventoryItem
-            ).join(models.Tusa
-            ).filter(models.Tusa.id == id
-            ).join(models.User, models.InventoryItem.owner_id == models.User.id 
-            ).options(
-            ).all()
+
+    statement = select(models.InventoryItem.id, models.InventoryItem.item_name, 
+                       models.InventoryItem.price, models.InventoryItem.owner_id, 
+                       models.User.username.label("owner_name")
+                ).join(models.Tusa
+                ).filter(models.Tusa.id == id
+                ).join(models.User
+                )
+    
+    result = db.execute(statement).all()
+
+    return [dict(data._mapping) for data in result]
 

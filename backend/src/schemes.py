@@ -23,7 +23,7 @@ class Tusa(BaseModel):
 class InventoryItemCreate(BaseModel):
     item_name: str
     price: int
-    # owner_name: str
+    owner_name: str
 
 class InventoryItem(InventoryItemCreate):
     id: int
