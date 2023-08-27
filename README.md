@@ -38,3 +38,7 @@ This paragraph will contain extra details on how I'm structuring my development 
     I'm following this guide for writing commit messages https://www.conventionalcommits.org/en/v1.0.0/#summary 
     
     with extentions from this link: https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines 
+
+## Literature
+
+1. Nice article about sqlalchemy and many to many relationship https://www.gormanalysis.com/blog/many-to-many-relationships-in-fastapi/
