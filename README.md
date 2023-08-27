@@ -2,10 +2,18 @@
 
 ## Requirements
 
+### Backend 
 * python == 3.9
 * req.txt
 
+### Frontend
+* node >= 18 (lts)
+* vite
+
+
 ## Run
+
+### Backend
 
 1. Run locally (`uvicorn`):
 
@@ -17,6 +25,10 @@
 
     Note:
         Don't forget to fill in corresponding values found in `example.env` (I suggest creating new file and naming it `dev.env`)
+
+### Frontend
+
+    `npm run build`
 
 ## Docs
 
