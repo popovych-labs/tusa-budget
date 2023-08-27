@@ -12,6 +12,7 @@ from . import config
 
 
 CURRENT_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+DIST_DIR = CURRENT_FILE_DIR + "/dist"
 TEMPLATES_DIR = CURRENT_FILE_DIR + "/templates"
 JS_DIR = CURRENT_FILE_DIR + "/js"
 STYLE_DIR = CURRENT_FILE_DIR + "/style"
@@ -29,6 +30,7 @@ def app_factory():
     )
 
     router_app = endpoints.application.create_routes(
+        index_dir=DIST_DIR,
         templates=templates,
         fn_get_db_session=fn_get_db_session,
         oauth2_scheme=oauth2_scheme
@@ -39,8 +41,7 @@ def app_factory():
     app.include_router(router_app)
     app.include_router(router_security)
 
-    app.mount("/js", StaticFiles(directory=JS_DIR), name="js")
-    app.mount("/style", StaticFiles(directory=STYLE_DIR), name="style")
+    app.mount("/", StaticFiles(directory=DIST_DIR, html = True), name="static")
 
     @app.exception_handler(405)
     async def error_handler(request: Request, exc: HTTPException):

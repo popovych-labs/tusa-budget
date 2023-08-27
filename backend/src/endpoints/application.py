@@ -2,7 +2,7 @@ from typing import Callable, Annotated, Optional
 
 from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse
+from fastapi.responses import JSONResponse, HTMLResponse, RedirectResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 
 from sqlalchemy.orm import Session
@@ -12,6 +12,7 @@ from .. import schemes
 
 
 def create_routes(
+        index_dir: str,
         templates: Jinja2Templates,
         fn_get_db_session: Callable,
         oauth2_scheme: OAuth2PasswordBearer
@@ -32,7 +33,7 @@ def create_routes(
 
     @endpoints.get("/{page_name}", response_class=HTMLResponse)
     async def get_basic_page(request: Request):
-        return templates.TemplateResponse(name="index.html", context={"request": request})
+        return FileResponse(index_dir + "/index.html")
     
     @endpoints.post("/login")
     async def get_login_part(request: Request, token: Annotated[str, Depends(oauth2_scheme)], db: Annotated[Session, Depends(fn_get_db_session)]):
