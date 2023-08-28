@@ -4,6 +4,8 @@ import { login_page } from './src/loginPage.js';
 import { dashboard_page } from './src/dashboardPage.js'
 import { tusa_page } from "./src/tusaPage";
 
+import PlaceholderInitialsAvatar from "./src/libs/avatar.js";
+
 var functionDict = {
     "/login": login_page,
     "/dashboard": dashboard_page,
@@ -42,8 +44,15 @@ var functionDict = {
         })
         .then(newContent => {
             // Step 2: Replace the current content with the new content
+        
             const currentContent = document.querySelector('#content'); // Replace with your element's selector
             currentContent.innerHTML = newContent;
+
+            const avatarPlaceholder = document.getElementById("avatar");
+            if (avatarPlaceholder) {
+                var avatarElement = PlaceholderInitialsAvatar.render(token);
+                avatarPlaceholder.appendChild(avatarElement);
+            }
         }).
         then(() => {
             const page_specific_script = functionDict[path];        
