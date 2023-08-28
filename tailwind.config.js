@@ -2,13 +2,12 @@
 module.exports = {
   content: [
     ".\\backend\\src\\templates\\*.html",
-    ".\\backend\\src\\js\\*.js"
+    ".\\frontend\\**\\*.js"
   ],
   theme: {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/forms'),
     'prettier-plugin-tailwindcss'
   ],
 }

@@ -4,7 +4,7 @@ run:
 	uvicorn --factory backend.src.main:app_factory --host 0.0.0.0 --reload --reload-dir backend --reload-include *.html --log-level debug
 
 tailwind:
-	tailwindcss -i backend\src\style\_tailwind.css -o backend\src\style\style.css --watch
+	tailwindcss -i frontend\_tailwind.css -o frontend\style.css --watch
 
 
 
