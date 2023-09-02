@@ -36,6 +36,7 @@
 
 1. Notifications to send money
 2. Extend dashboard to display an anount of money to receive or transfer
+3. Use ocr like this: https://www.veryfi.com/pricing/
 
 ### User Flow
 
