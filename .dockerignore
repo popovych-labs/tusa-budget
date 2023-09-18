@@ -1,0 +1,15 @@
+.scratch
+.venv
+.vscode
+node_modules
+.gitignore
+*.env
+*.sqlite
+*.db
+docker-compose.yaml
+alembic.ini
+.dockerignore
+.git
+README.md
+docker
+docs

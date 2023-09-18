@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 export default {
     root: "./frontend",
     build: {
-        watch: './frontned',
+        // watch: './frontnend',
         emptyOutDir: true,
         minify: false,
         outDir: "../backend/src/dist"
